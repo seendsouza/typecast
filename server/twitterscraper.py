@@ -60,6 +60,12 @@ def typecast(keyword,time_start=dt.date(2020,1,1),time_end=dt.date(2020,1,11),ne
   else:
     final_list_for_scores = array_of_scores_for_tweets
     final_list_for_tweets = tweet_content
+    
+   # Negative Word Perception
+    negativeWordCount = 0
+    for i in range(len(array_of_scores_for_tweets)-1):
+        if (array_of_scores_for_tweets[i] < -0.15):
+            negativeWordCount += 1
 
   #Keyword Analysis
   keywords_of_tweets = []
@@ -78,11 +84,11 @@ def typecast(keyword,time_start=dt.date(2020,1,1),time_end=dt.date(2020,1,11),ne
   for word in keywords_of_tweets:
     unique_list[word] += 1
   
-  return [tweet_url, tweet_content, keyword_of_indivdual_tweet, unique_list]
+  return [tweet_url, tweet_content, keyword_of_indivdual_tweet, unique_list, negativeWordCount]
 
 begin_date = dt.date(2020,1,1)
 end_date = dt.date(2020,1,11)
 tweet_links, tweet_content, indivdual_tweet_keyword, keyword_analysis = 1,2,3,4
 unpack = typecast(keyword="askrbc",time_start=begin_date,time_end=end_date,negative=False,number_of_tweets=1000)
 
-tweet_links, tweet_content, indivdual_tweet_keyword, keyword_analysis = unpack[0], unpack[1], unpack[2], unpack[3]
+tweet_links, tweet_content, indivdual_tweet_keyword, keyword_analysis = unpack[0], unpack[1], unpack[2], unpack[3], unpack[4]
