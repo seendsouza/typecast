@@ -91,7 +91,15 @@ def typecast(keyword,negative,number_of_tweets):
     new_list['id'] = tweet_url[i]
     new_list['content'] = tweet_content[i]
     key_content.append(new_list)
-  return {"tweets":key_content,"allKeywords":keyword_of_indivdual_tweet,  "uniqueList":unique_list, "noNegativeTweets":negativeTweetCount,"tweetsAnalyzed": totalTweetCount}
+
+  #Compound score
+  xop = 0
+  for score in array_of_scores_for_tweets:
+    xop += score
+  xop = xop / len(array_of_scores_for_tweets)
+
+  return {"tweets":key_content,"allKeywords":keyword_of_indivdual_tweet,  "uniqueList":unique_list, "noNegativeTweets":negativeTweetCount,"tweetsAnalyzed": totalTweetCount,
+         "perception":xop}
 
 ##begin_date = dt.date(2020,1,1)
 #end_date = dt.date(2020,1,11)
