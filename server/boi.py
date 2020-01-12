@@ -66,7 +66,7 @@ def typecast(keyword,negative,number_of_tweets):
   for i in range(len(array_of_scores_for_tweets)-1):
     if (array_of_scores_for_tweets[i] < -0.15):
       negativeTweetCount+= 1
-      totalTweetCount += 1
+    totalTweetCount += 1
 
   #Keyword Analysis
   keywords_of_tweets = []
