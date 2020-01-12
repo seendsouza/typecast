@@ -35,6 +35,7 @@ class AdminNavbarLinks extends Component {
             <i className="fa fa-dashboard" />
             <p className="hidden-lg hidden-md">Dashboard</p>
           </NavItem>
+          {/*
           <NavDropdown
             eventKey={2}
             title={notification}
@@ -50,7 +51,7 @@ class AdminNavbarLinks extends Component {
           <NavItem eventKey={3} href="#">
             <i className="fa fa-search" />
             <p className="hidden-lg hidden-md">Search</p>
-          </NavItem>
+          </NavItem>*/}
         </Nav>
         <Nav pullRight>
           <NavItem eventKey={1} href="#">
@@ -61,17 +62,17 @@ class AdminNavbarLinks extends Component {
             title="Dropdown"
             id="basic-nav-dropdown-right"
           >
-            <Dropdown.Item eventKey={2.1}>Action</Dropdown.Item>
+            {/*<Dropdown.Item eventKey={2.1}>Action</Dropdown.Item>
             <Dropdown.Item eventKey={2.2}>Another action</Dropdown.Item>
             <Dropdown.Item eventKey={2.3}>Something</Dropdown.Item>
             <Dropdown.Item eventKey={2.4}>Another action</Dropdown.Item>
             <Dropdown.Item eventKey={2.5}>Something</Dropdown.Item>
             <Dropdown.Item divider />
-            <Dropdown.Item eventKey={2.5}>Separated link</Dropdown.Item>
+    <Dropdown.Item eventKey={2.5}>Separated link</Dropdown.Item>*/}
           </NavDropdown>
-          <NavItem eventKey={3} href="#">
+          {/*<NavItem eventKey={3} href="#">
             Log out
-          </NavItem>
+    </NavItem>*/}
         </Nav>
       </div>
     );

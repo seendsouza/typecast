@@ -26,17 +26,20 @@ import "./assets/css/pe-icon-7-stroke.css";
 
 import React from "react";
 import ReactDOM from "react-dom";
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import {Provider} from "react-redux";
+import store from "./store";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
 import AdminLayout from "./layouts/Admin.jsx";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/admin" render={
-  props => < AdminLayout { ...props } />} />
-      <Redirect from="/" to="/admin/dashboard" />
-    </Switch>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/admin" render={props => <AdminLayout {...props} />} />
+        <Redirect from="/" to="/admin/dashboard" />
+      </Switch>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );

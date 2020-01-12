@@ -68,11 +68,11 @@ class Sidebar extends Component {
             href="https://www.creative-tim.com?ref=lbd-sidebar"
             className="simple-text logo-normal"
           >
-            Creative Tim
+            Typecast
           </a>
         </div>
         <div className="sidebar-wrapper">
-          <ul className="nav">
+          <ul className="nav text-center">
             {this.state.width <= 991 ? <AdminNavbarLinks /> : null}
             {this.props.routes.map((prop, key) => {
               if (!prop.redirect)
@@ -87,10 +87,10 @@ class Sidebar extends Component {
                   >
                     <NavLink
                       to={prop.layout + prop.path}
-                      className="nav-link"
+                      className="nav-link text-center"
                       activeClassName="active"
                     >
-                      <i className={prop.icon} />
+                      <i className={prop.icon + " justify-center mx-auto text-center"} />
                       <p>{prop.name}</p>
                     </NavLink>
                   </li>
