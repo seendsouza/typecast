@@ -1,4 +1,4 @@
 import { combineReducers } from "redux";
 import dashboardReducer from "./dashboardReducer";
-
-export default combineReducers({ dashboard: dashboardReducer});
+import tweetsReducer from "./tweetsReducer";
+export default combineReducers({ dashboard: dashboardReducer, tweets: tweetsReducer});

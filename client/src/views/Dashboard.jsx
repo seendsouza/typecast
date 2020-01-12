@@ -18,12 +18,12 @@
 import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
 import { Container, Row, Col } from "react-bootstrap";
+import PropTypes from 'prop-types';
 
 import { Card } from "../components/Card/Card.jsx";
 import { StatsCard } from "../components/StatsCard/StatsCard.jsx";
 import { Tasks } from "../components/Tasks/Tasks.jsx";
 import {
-  dataPie,
   legendPie,
   dataSales,
   optionsSales,
@@ -34,8 +34,13 @@ import {
   responsiveBar,
   legendBar
 } from "../variables/Variables.jsx";
+import { connect } from "react-redux";
+import {getDashboard} from '../actions/dashboardActions';
 
 class Dashboard extends Component {
+  componentDidMount() {
+    this.props.getDashboard()
+  }
   createLegend(json) {
     var legend = [];
     for (var i = 0; i < json["names"].length; i++) {
@@ -47,6 +52,17 @@ class Dashboard extends Component {
     return legend;
   }
   render() {
+    var percentageNegativeTweets = (this.props.noNegativeTweets/this.props.tweetsAnalyzed)*100;
+    if (!percentageNegativeTweets){
+      percentageNegativeTweets = 0
+    }
+    const fixedNegPercentage = percentageNegativeTweets.toFixed(0);
+    const remainingPercentage= 100-fixedNegPercentage;
+    var dataPie = {
+      labels: ["%", `${fixedNegPercentage}%`, `${remainingPercentage}%`],
+      series: [fixedNegPercentage, remainingPercentage]
+    };
+    console.log(dataPie);
     return (
       <div className="content">
         <Container fluid>
@@ -55,7 +71,7 @@ class Dashboard extends Component {
               <StatsCard
                 bigIcon={<i className="pe-7s-server text-warning" />}
                 statsText="Tweets Analyzed"
-                statsValue="105GB"
+                statsValue={this.props.dashboard.tweetsAnalyzed}
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Updated now"
               />
@@ -64,7 +80,7 @@ class Dashboard extends Component {
               <StatsCard
                 bigIcon={<i className="pe-7s-wallet text-success" />}
                 statsText="Negative Tweets"
-                statsValue="$1,345"
+                statsValue={this.props.dashboard.noNegativeTweets}
                 statsIcon={<i className="fa fa-calendar-o" />}
                 statsIconText="Last day"
               />
@@ -73,7 +89,7 @@ class Dashboard extends Component {
               <StatsCard
                 bigIcon={<i className="pe-7s-graph1 text-danger" />}
                 statsText="% of Negative Tweets"
-                statsValue="23"
+                statsValue={fixedNegPercentage}
                 statsIcon={<i className="fa fa-clock-o" />}
                 statsIconText="In the last hour"
               />
@@ -82,7 +98,7 @@ class Dashboard extends Component {
               <StatsCard
                 bigIcon={<i className="fa fa-twitter text-info" />}
                 statsText="% of Technical Issues"
-                statsValue="+45"
+                statsValue={this.props.dashboard.percentageTechnicalIssues}
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Updated now"
               />
@@ -114,8 +130,8 @@ class Dashboard extends Component {
             <Col md={4}>
               <Card
                 statsIcon="fa fa-clock-o"
-                title="Email Statistics"
-                category="Last Campaign Performance"
+                title="Tweet Demographic"
+                category="Negative Tweets vs. Other Tweets"
                 stats="Campaign sent 2 days ago"
                 content={
                   <div
@@ -158,7 +174,7 @@ class Dashboard extends Component {
 
             <Col md={6}>
               <Card
-                title="Tasks"
+                title="Top Keywords"
                 category="Backend development"
                 stats="Updated 3 minutes ago"
                 statsIcon="fa fa-history"
@@ -178,4 +194,12 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+Dashboard.propTypes = {
+  dashboard: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  dashboard: state.dashboard
+});
+
+export default connect(mapStateToProps, { getDashboard})(Dashboard);

@@ -1,25 +1,25 @@
 from flask import Flask, jsonify, request
 import json
 import io
-import twitterscraper
+import boi 
 
 app = Flask(__name__)
 
-
+"""
 @app.route('/api/dashboard', methods=['GET'])
 def dashboard():
-    """
     response = func()
     return jsonify(response)
-    """
     pass
+"""
 
-@app.route('/api/tweets',methods=['GET'])
+@app.route('/api/dashboard',methods=['GET'])
 def tweets():
-    request.args.
-    response = twitterscraper.typecast(request.args.keyword,request.args.time_start,
-                            request.args.time_end,request.args.negative,
-                            request.args.number_of_tweets)
-    return jsonify(resposne)
+    print(request.args)
+    response = boi.typecast(request.args.getlist('keyword[]'),
+                            request.args.get("negative"),
+                            request.args.get("number_of_tweets"))
+    print(response)
+    return jsonify(response)
     
     

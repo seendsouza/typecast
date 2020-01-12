@@ -17,10 +17,12 @@
 */
 import React, { Component } from "react";
 import { Container, Row, Col, Table } from "react-bootstrap";
+import ListItem from "./ListItem";
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 import Card from "../components/Card/Card.jsx";
 import { thArray, tdArray } from "../variables/Variables.jsx";
-
 class TableList extends Component {
   render() {
     return (
@@ -38,21 +40,14 @@ class TableList extends Component {
                   <Table hover>
                     <thead>
                       <tr>
-                        {thArray.map((prop, key) => {
-                          return <th key={key}>{prop}</th>;
-                        })}
+                        <th>Tweets</th>;
                       </tr>
                     </thead>
                     <tbody>
-                      {tdArray.map((prop, key) => {
-                        return (
-                          <tr key={key}>
-                            {prop.map((prop, key) => {
-                              return <td key={key}>{prop}</td>;
-                            })}
-                          </tr>
-                        );
+                      {this.props.dashboard.tweets.map(id, content => {
+                        return <ListItem id={id} content={content} />;
                       })}
+                      ); })}
                     </tbody>
                   </Table>
                 }
@@ -65,4 +60,12 @@ class TableList extends Component {
   }
 }
 
-export default TableList;
+TableList.propTypes = {
+  dashboard: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  dashboard: state.dashboard
+});
+
+export default connect(mapStateToProps)(TableList);
