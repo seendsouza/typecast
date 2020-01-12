@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
 import axios from "axios";
@@ -11,7 +11,7 @@ class ListItem extends Component {
       displayText: ""
     };
   }
-    /*
+  /*
   componentDidMount() {
     axios
       .get(`https://api.twitter.com/1.1/statuses/show.json?id=${this.props.id}`)
@@ -24,6 +24,9 @@ class ListItem extends Component {
     return (
       <tr>
         <td>{this.props.content}</td>
+        <td>
+          <a target="_blank" href={"twitter.com" + this.props.id}>></a>
+        </td>
       </tr>
     );
   }

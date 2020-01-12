@@ -34,13 +34,13 @@ const dashboardRoutes = [
     component: TableList,
     layout: "/admin"
   },
-  {
+ /* {
     path: "/maps",
     name: "Maps",
     icon: "pe-7s-map-marker",
     component: Maps,
     layout: "/admin"
-  },
+  },*/
 ];
 
 export default dashboardRoutes;

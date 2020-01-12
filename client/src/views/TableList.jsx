@@ -18,8 +18,8 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Table } from "react-bootstrap";
 import ListItem from "./ListItem";
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import Card from "../components/Card/Card.jsx";
 import { thArray, tdArray } from "../variables/Variables.jsx";
@@ -44,10 +44,9 @@ class TableList extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {this.props.dashboard.tweets.map(id, content => {
-                        return <ListItem id={id} content={content} />;
+                      {this.props.dashboard.tweets.map((id) => {
+                        return <ListItem id={id.id} content={id.content} />
                       })}
-                      ); })}
                     </tbody>
                   </Table>
                 }

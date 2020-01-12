@@ -18,28 +18,18 @@
 import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
 import { Container, Row, Col } from "react-bootstrap";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import { Card } from "../components/Card/Card.jsx";
 import { StatsCard } from "../components/StatsCard/StatsCard.jsx";
 import { Tasks } from "../components/Tasks/Tasks.jsx";
-import {
-  legendPie,
-  dataSales,
-  optionsSales,
-  responsiveSales,
-  legendSales,
-  dataBar,
-  optionsBar,
-  responsiveBar,
-  legendBar
-} from "../variables/Variables.jsx";
+import { optionsBar, responsiveBar } from "../variables/Variables.jsx";
 import { connect } from "react-redux";
-import {getDashboard} from '../actions/dashboardActions';
+import { getDashboard } from "../actions/dashboardActions";
 
 class Dashboard extends Component {
   componentDidMount() {
-    this.props.getDashboard()
+    this.props.getDashboard();
   }
   createLegend(json) {
     var legend = [];
@@ -52,15 +42,26 @@ class Dashboard extends Component {
     return legend;
   }
   render() {
-    var percentageNegativeTweets = (this.props.noNegativeTweets/this.props.tweetsAnalyzed)*100;
-    if (!percentageNegativeTweets){
-      percentageNegativeTweets = 0
+    var percentageNegativeTweets =
+      (this.props.dashboard.noNegativeTweets /
+        this.props.dashboard.tweetsAnalyzed) *
+      100;
+    if (!percentageNegativeTweets) {
+      percentageNegativeTweets = 0;
     }
     const fixedNegPercentage = percentageNegativeTweets.toFixed(0);
-    const remainingPercentage= 100-fixedNegPercentage;
-    var dataPie = {
-      labels: ["%", `${fixedNegPercentage}%`, `${remainingPercentage}%`],
-      series: [fixedNegPercentage, remainingPercentage]
+    const remainingPercentage = 100 - fixedNegPercentage;
+    const dataPie = {
+      labels: [`${fixedNegPercentage}%`, `${remainingPercentage}%`],
+      series: [parseInt(fixedNegPercentage), remainingPercentage]
+    };
+    const dataBar = {
+      labels: this.props.dashboard.uniqueList.slice(0, 5).map(a => {
+        return a[0];
+      }),
+      series: this.props.dashboard.uniqueList.slice(0, 5).map(a => {
+        return a[1];
+      })
     };
     console.log(dataPie);
     return (
@@ -105,34 +106,12 @@ class Dashboard extends Component {
             </Col>
           </Row>
           <Row>
-            <Col md={8}>
-              <Card
-                statsIcon="fa fa-history"
-                id="chartHours"
-                title="Users Behavior"
-                category="24 Hours performance"
-                stats="Updated 3 minutes ago"
-                content={
-                  <div className="ct-chart">
-                    <ChartistGraph
-                      data={dataSales}
-                      type="Line"
-                      options={optionsSales}
-                      responsiveOptions={responsiveSales}
-                    />
-                  </div>
-                }
-                legend={
-                  <div className="legend">{this.createLegend(legendSales)}</div>
-                }
-              />
-            </Col>
-            <Col md={4}>
+            <Col md={3}>
               <Card
                 statsIcon="fa fa-clock-o"
                 title="Tweet Demographic"
                 category="Negative Tweets vs. Other Tweets"
-                stats="Campaign sent 2 days ago"
+                stats=""
                 content={
                   <div
                     id="chartPreferences"
@@ -141,20 +120,14 @@ class Dashboard extends Component {
                     <ChartistGraph data={dataPie} type="Pie" />
                   </div>
                 }
-                legend={
-                  <div className="legend">{this.createLegend(legendPie)}</div>
-                }
               />
             </Col>
-          </Row>
-
-          <Row>
             <Col md={6}>
               <Card
                 id="chartActivity"
-                title="2014 Sales"
-                category="All products including Taxes"
-                stats="Data information certified"
+                title="Top Keywords"
+                category="Pie Chart"
+                stats=""
                 statsIcon="fa fa-check"
                 content={
                   <div className="ct-chart">
@@ -166,22 +139,26 @@ class Dashboard extends Component {
                     />
                   </div>
                 }
-                legend={
-                  <div className="legend">{this.createLegend(legendBar)}</div>
-                }
               />
             </Col>
 
-            <Col md={6}>
+            <Col md={3}>
               <Card
                 title="Top Keywords"
-                category="Backend development"
+                category="List"
                 stats="Updated 3 minutes ago"
                 statsIcon="fa fa-history"
                 content={
                   <div className="table-full-width">
                     <table className="table">
-                      <Tasks />
+                      {this.props.dashboard.uniqueList.slice(0, 5).map(a => {
+                        return (
+                          <tr>
+                            <td>{a[0]}</td>
+                            <td>{a[1]}</td>
+                          </tr>
+                        );
+                      })}
                     </table>
                   </div>
                 }
@@ -202,4 +179,4 @@ const mapStateToProps = state => ({
   dashboard: state.dashboard
 });
 
-export default connect(mapStateToProps, { getDashboard})(Dashboard);
+export default connect(mapStateToProps, { getDashboard })(Dashboard);
