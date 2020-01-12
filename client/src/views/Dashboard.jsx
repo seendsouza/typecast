@@ -26,6 +26,11 @@ import { Tasks } from "../components/Tasks/Tasks.jsx";
 import { optionsBar, responsiveBar } from "../variables/Variables.jsx";
 import { connect } from "react-redux";
 import { getDashboard } from "../actions/dashboardActions";
+const Graph = (props) =>{
+  return(
+    <ChartistGraph {...props} />
+  )
+}
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -74,7 +79,7 @@ class Dashboard extends Component {
                 statsText="Tweets Analyzed"
                 statsValue={this.props.dashboard.tweetsAnalyzed}
                 statsIcon={<i className="fa fa-refresh" />}
-                statsIconText="Updated now"
+                statsIconText="Number of total tweets"
               />
             </Col>
             <Col lg={3} sm={6}>
@@ -83,7 +88,7 @@ class Dashboard extends Component {
                 statsText="Negative Tweets"
                 statsValue={this.props.dashboard.noNegativeTweets}
                 statsIcon={<i className="fa fa-calendar-o" />}
-                statsIconText="Last day"
+                statsIconText="Number of negative tweets (polarity)"
               />
             </Col>
             <Col lg={3} sm={6}>
@@ -92,7 +97,7 @@ class Dashboard extends Component {
                 statsText="% of Negative Tweets"
                 statsValue={fixedNegPercentage}
                 statsIcon={<i className="fa fa-clock-o" />}
-                statsIconText="In the last hour"
+                statsIconText="Ratio between total tweets and negative"
               />
             </Col>
             <Col lg={3} sm={6}>
@@ -101,7 +106,7 @@ class Dashboard extends Component {
                 statsText="% of Technical Issues"
                 statsValue={this.props.dashboard.percentageTechnicalIssues}
                 statsIcon={<i className="fa fa-refresh" />}
-                statsIconText="Updated now"
+                statsIconText="Average perception"
               />
             </Col>
           </Row>
@@ -117,7 +122,7 @@ class Dashboard extends Component {
                     id="chartPreferences"
                     className="ct-chart ct-perfect-fourth"
                   >
-                    <ChartistGraph data={dataPie} type="Pie" />
+                    <Graph data={dataPie} type="Pie" />
                   </div>
                 }
               />
@@ -131,7 +136,7 @@ class Dashboard extends Component {
                 statsIcon="fa fa-check"
                 content={
                   <div className="ct-chart">
-                    <ChartistGraph
+                    <Graph
                       data={dataBar}
                       type="Bar"
                       options={optionsBar}
@@ -146,7 +151,6 @@ class Dashboard extends Component {
               <Card
                 title="Top Keywords"
                 category="List"
-                stats="Updated 3 minutes ago"
                 statsIcon="fa fa-history"
                 content={
                   <div className="table-full-width">

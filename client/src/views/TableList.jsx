@@ -23,6 +23,13 @@ import { connect } from "react-redux";
 
 import Card from "../components/Card/Card.jsx";
 import { thArray, tdArray } from "../variables/Variables.jsx";
+
+class RedirectPage extends React.Component {
+  componentDidMount(){
+    window.location.replace(this.props.url)
+  }
+}
+
 class TableList extends Component {
   render() {
     return (
