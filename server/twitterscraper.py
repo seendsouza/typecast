@@ -32,7 +32,7 @@ def sentiment_analyzer_scores(sentence):
   score = analyzer.polarity_scores(sentence)
   return score
 
-def typecast(keyword,time_start,time_end,negative,number_of_tweets):
+def typecast(keyword,time_start=dt.date(2020,1,1),time_end=dt.date(2020,1,11),negative,number_of_tweets):
   # Scraping Tweets
   tweets = query_tweets(keyword,begindate=time_start,enddate=time_end, limit=number_of_tweets, lang='english')
 
