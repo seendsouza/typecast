@@ -5,6 +5,7 @@ const initialState = {
   tweetsAnalyzed: 0,
   noNegativeTweets: 0,
   uniqueList: [],
+  perception: 0,
   percentageNegativeTweets: 0,
   percentageTechnicalIssues: 0
 };
@@ -27,6 +28,7 @@ export default function(state = initialState, action) {
         tweetsAnalyzed: action.payload.tweetsAnalyzed,
         noNegativeTweets: action.payload.noNegativeTweets,
         uniqueList: items,
+        perception: action.payload.perception,
         tweets: action.payload.tweets,
       };
     default:

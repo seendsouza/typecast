@@ -103,8 +103,8 @@ class Dashboard extends Component {
             <Col lg={3} sm={6}>
               <StatsCard
                 bigIcon={<i className="fa fa-twitter text-info" />}
-                statsText="% of Technical Issues"
-                statsValue={this.props.dashboard.percentageTechnicalIssues}
+                statsText="Average Perception"
+                statsValue={this.props.dashboard.perception.toFixed(2)*100}
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Average perception"
               />
